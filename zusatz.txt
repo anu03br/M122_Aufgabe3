@@ -1,0 +1,3 @@
+programm soll ordner abhören auf veränderungen
+wenn veränderung:
+neues bild is duplicate?

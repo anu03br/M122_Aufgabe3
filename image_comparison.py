@@ -24,10 +24,11 @@ def compare_images(folder_path):
     # for original files in image_files
     for original_file in image_files:
         #if it's not in duplicates array
-        if not original_file in duplicate_files:
+        if original_file not in duplicate_files:
             # get mean pix value from ('./images','original_image')
             original_image = Image.open(os.path.join(image_folder, original_file))
             pix_mean1 = ImageStat.Stat(original_image).mean
+            print(type(pix_mean1))
 
         # second loop through image files
             for file_check in image_files:

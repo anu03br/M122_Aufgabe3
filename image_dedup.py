@@ -9,9 +9,11 @@
 #Quelle: LMS M122 Aufgabe 3
 #--------------------------------------------------------------------------------
 #  can use pathlib, os
+# import modules
 import argparse
 import os
 from PIL import Image, ImageStat
+#import my image-comparison function 
 from image_comparison import compare_images
 
 
@@ -30,6 +32,15 @@ def main(dry_run: bool):
     else:
         print(f"duplicate files:\n{duplicate_files}")
         print("dry_run ist false.\nDie Bildduplikate werden gelöscht")
+
+        # lösche alle files in duplicate files
+        for file in duplicate_files:
+            file_path = os.path.join(folder_path, file)
+            try:
+                os.remove(file_path)
+                print(f"gelöschtes File: {file_path}")
+            except Exception as e:
+                print(f"beim löschen des files {file_path} ist ein Fehler aufgetreten: {e}")
         
 
 # reversed parameterm -f is full_run wich sets dry-run parameter to false (true by default)
