@@ -13,7 +13,6 @@ from PIL import Image, ImageStat
 def compare_images(folder_path,):
     # relative path to image folder
     image_folder = folder_path
-    dry_run = dry_run
 
     # for any images (jpg) in image folder
     image_files = [_ for _ in os.listdir(image_folder)if _.endswith(('.jpg', '.png'))]
@@ -46,11 +45,6 @@ def compare_images(folder_path,):
                         duplicate_files.append(file_check)
     print(f"duplicate files:\n{duplicate_files}")
     return duplicate_files
-
-    #return list with duplicates
-    return duplicate_files
-    # print all duplictes files 
-    # print(f"duplicate files:\n{duplicate_files}")
 
 
 
