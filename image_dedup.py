@@ -13,8 +13,12 @@
 import argparse
 import os
 from PIL import Image, ImageStat
-#import my image-comparison function 
+# import my image-comparison function 
 from image_comparison import compare_images
+# import listener
+from file_listener import start_listener
+# import delete function
+from delete_dupes import delete_duplicates
 
 
 def main(dry_run: bool):
@@ -23,26 +27,15 @@ def main(dry_run: bool):
     folder_path = input("bitte geben Sie den Pfad zum Bildordner an\n")
 
     # funktionsaufruf image_comparison.compare_images
-    duplicate_files = compare_images(folder_path)
+    duplicate_files = compare_images(folder_path, dry_run)
 
     if dry_run:
-        print(f"duplicate files:\n{duplicate_files}")
-        print("Das war nur ein testlauf. Die Bilder wurden nicht gelöscht")
-        
-    else:
-        print(f"duplicate files:\n{duplicate_files}")
-        print("dry_run ist false.\nDie Bildduplikate werden gelöscht")
+        delete_duplicates(folder_path, duplicate_files)
 
-        # lösche alle files in duplicate files
-        for file in duplicate_files:
-            file_path = os.path.join(folder_path, file)
-            try:
-                os.remove(file_path)
-                print(f"gelöschtes File: {file_path}")
-            except Exception as e:
-                print(f"beim löschen des files {file_path} ist ein Fehler aufgetreten: {e}")
+    # at the end Start the file listener
+    start_listener(folder_path, dry_run)
+    
         
-
 # reversed parameterm -f is full_run wich sets dry-run parameter to false (true by default)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -58,19 +51,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main(dry_run=args.dry_run)
-
-
-# original function with dry_run insteal of opposite full_run
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument(
-#         "--dry-run",
-#         "-d",
-#         default=True,
-#         action="store_true",
-#         help="A dry run shows the duplicates but does not delete anything",
-#     )
-
-#     args = parser.parse_args()
-
-#     main(dry_run=args.dry_run)

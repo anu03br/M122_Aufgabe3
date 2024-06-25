@@ -10,9 +10,10 @@
 import os
 from PIL import Image, ImageStat
 
-def compare_images(folder_path):
+def compare_images(folder_path,):
     # relative path to image folder
     image_folder = folder_path
+    dry_run = dry_run
 
     # for any images (jpg) in image folder
     image_files = [_ for _ in os.listdir(image_folder)if _.endswith(('.jpg', '.png'))]
@@ -28,7 +29,6 @@ def compare_images(folder_path):
             # get mean pix value from ('./images','original_image')
             original_image = Image.open(os.path.join(image_folder, original_file))
             pix_mean1 = ImageStat.Stat(original_image).mean
-            print(type(pix_mean1))
 
         # second loop through image files
             for file_check in image_files:
@@ -44,6 +44,8 @@ def compare_images(folder_path):
                     if pix_mean1 == pix_mean2:
                         # appends the SECOND file to the dupes array
                         duplicate_files.append(file_check)
+    print(f"duplicate files:\n{duplicate_files}")
+    return duplicate_files
 
     #return list with duplicates
     return duplicate_files
