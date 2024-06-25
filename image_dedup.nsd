@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:nsd="https://structorizer.fisch.lu" version="3.32-22" preRepeat="until " postFor="to" preReturn="return" postForIn="in" preWhile="while " output="OUTPUT" input="INPUT" preFor="for" preExit="exit" preLeave="leave" ignoreCase="true" preThrow="throw" preForIn="foreach" stepFor="by" namespace="" author="Admin" created="2024-06-24" changedby="Admin" changed="2024-06-24" origin="Structorizer 3.32-22" text="&#34;image_dedup.py&#34;" comment="&#34;&#34;" color="ffffff" type="program" style="nice">
+	<children>
+		<instruction text="&#34;cmd Befehlt startet das programm&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;default dry_run = true&#34;,&#34;Wenn -f argument mitgegeben wird&#34;,&#34;dry_run = false&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;folder_path = eingabe des nutzers&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<call text="&#34;compare images funktion wird aufgerufen&#34;,&#34;übergabeparameter folder_path&#34;" comment="&#34;&#34;" color="ffffff" disabled="0" ismethoddecl="0"></call>
+		<instruction text="&#34;initialisiert leere liste duplicate_files&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;sucht im folder_path nach allen files mit endung .jpg oder .png&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<for text="&#34;for original_file in image_files &#60;- ? to ?&#34;" comment="&#34;loopt durch alle files im ordner image_files&#34;" counterVar="original_file in image_files" startValue="?" endValue="?" stepConst="1" style="COUNTER" color="ffffff" disabled="0">
+			<qFor>
+				<alternative text="&#34;(wenn das file nicht in duplicate files ist)&#34;" comment="&#34;&#34;" color="ffffff" disabled="0">
+					<qTrue>
+						<instruction text="&#34;pix_mean1 = mean pixel wert des bildes auslesen&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+						<for text="&#34;for check_files in image files &#60;- ? to ?&#34;" comment="&#34;2te loop um bilder mit dem ersten bild zu vergleichen&#34;" counterVar="check_files in image files" startValue="?" endValue="?" stepConst="1" style="COUNTER" color="ffffff" disabled="0">
+							<qFor>
+								<alternative text="&#34;(wenn das file != das original file ist)&#34;" comment="&#34;&#34;" color="ffffff" disabled="0">
+									<qTrue>
+										<instruction text="&#34;pix_mean2 =  mean pixel wert des bildes auslesen&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+										<alternative text="&#34;(pix_mean1 == pix_mean2)&#34;" comment="&#34;&#34;" color="ffffff" disabled="0">
+											<qTrue>
+												<instruction text="&#34;das 2te bild (file_check) in die duplicate_files liste einfügen&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+											</qTrue>
+											<qFalse>
+												<instruction text="&#34;pass&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+											</qFalse>
+										</alternative>
+									</qTrue>
+									<qFalse>
+										<instruction text="&#34;pass&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+									</qFalse>
+								</alternative>
+							</qFor>
+						</for>
+					</qTrue>
+					<qFalse>
+						<instruction text="&#34;pass&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+					</qFalse>
+				</alternative>
+			</qFor>
+		</for>
+		<jump text="&#34;rückgabe von duplicate_files&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></jump>
+		<instruction text="&#34;ausgabe von duplicate files im terminal&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<alternative text="&#34;(dry_run == True)&#34;" comment="&#34;&#34;" color="ffffff" disabled="0">
+			<qTrue>
+				<instruction text="&#34;print &#34;&#34;bilder werden gelöscht&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="&#34;löschen aller files in duplicate_files&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qTrue>
+			<qFalse>
+				<instruction text="&#34;print &#34;&#34;das war nur ein testlauf&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="&#34;pass&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qFalse>
+		</alternative>
+	</children>
+</root>
